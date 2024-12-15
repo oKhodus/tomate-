@@ -2,29 +2,30 @@ Tomate! App
 Description: A simple Pomodoro technique timer application, including work and break timers.
 Requirements:
 
-    Python 3.x
-    Libraries:
-        pygame
-        tkinter
-How to run the program
+Python 3.x
+Libraries:
+    pygame
+    tkinter
+    
+How to run the program:
 
-    Clone the repository:
+Clone the repository:
 
-git clone https://github.com/your_project/tomate.git
+    git clone https://github.com/your_project/tomate.git
 
 Navigate to the project directory:
 
-cd tomate
+    cd tomate
 
 (Optional) Create a virtual environment:
 
-python -m venv venv
+    python -m venv venv
 
 Activate the virtual environment:
 
-    Windows:
+Windows:
 
-.\venv\Scripts\activate
+    .\venv\Scripts\activate
 
 Mac/Linux:
 
@@ -32,8 +33,8 @@ Mac/Linux:
 
 Install dependencies:
 
-pip install -r requirements.txt
+    pip install -r requirements.txt
 
 Run the program:
 
-python main.py
+    python main.py
