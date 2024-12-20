@@ -1,11 +1,12 @@
 import tkinter as tk
+from tkinter import ttk
 import pygame
 
 root = tk.Tk()
 pygame.mixer.init()
 
 root.title("Tomate!")
-root.geometry("320x250")
+root.geometry("320x300")
 
 root.iconbitmap("staff/tomat.ico")
 
@@ -14,7 +15,7 @@ base_font = ("Helvetica", 14)
 label = tk.Label(root, text="Welcome to Tomate! \n \
 Please enter duration of \n \
 work and break (in minutes)",
-font= base_font)
+                 font=base_font)
 label.pack()
 
 work_label = tk.Label(root, text="Duration of work")
@@ -35,7 +36,18 @@ sumround_entry.pack()
 timer_label = tk.Label(root, text="", font=("Helvetica", 18))
 timer_label.pack()
 
+progress_frame = tk.Frame(root)
+progress_frame.pack()
+
+p = ttk.Progressbar(progress_frame, orient="horizontal", length=200, mode="determinate", maximum=100)
+
 widgets = [work_entry, break_entry, work_label, break_label, sumround_label, sumround_entry]
+
+
+def update_progress(current_round, total_rounds):
+    progress = (current_round / total_rounds) * 100
+    p["value"] = progress
+    p.update()
 
 def countdown(sec, callback):
     minutes, seconds = divmod(sec, 60)
@@ -54,6 +66,8 @@ def start_timer():
         user_work = int(work_entry.get()) * 60
         user_break = int(break_entry.get()) * 60
         user_rounds = int(sumround_entry.get())
+
+        p.pack()
         tomate_timer(user_work, user_break, 1, user_rounds)
 
         for widget in widgets:
@@ -65,9 +79,12 @@ def start_timer():
 
 def tomate_timer(work_t, break_t, loop, loops):
     if loop > loops:
+        play_sound()
         label.config(text="That's all, the work is done, good job!")
         timer_label.destroy()
         return
+
+    update_progress(loop, loops)
 
     def start_break():
         play_sound()
@@ -81,6 +98,7 @@ def tomate_timer(work_t, break_t, loop, loops):
             countdown(break_t, start_next_round)
 
     def start_next_round():
+        play_sound()
         tomate_timer(work_t, break_t, loop + 1, loops)
 
     label.config(text=f"Round {loop}/{loops}: Work time!")
