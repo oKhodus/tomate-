@@ -5,7 +5,8 @@ from logic.timer import start_timer
 def create_main_window(root):
     root.title("Tomate!")
     root.geometry("320x300")
-    size = root.geometry("320x300")
+
+    root.pack_propagate(False)
 
     root.iconbitmap("staff/tomat.ico")
 
@@ -35,7 +36,10 @@ work and break (in minutes)", font=base_font)
     timer_label.pack()
 
     progress_frame = tk.Frame(root)
-    progress_frame.pack()
+    progress_frame.pack(fill=tk.BOTH, expand=True)
 
-    button = tk.Button(root, text="Start timer", command=lambda: start_timer(work_entry, break_entry, sumround_entry, timer_label, progress_frame, label, button, work_label, break_label, sumround_label))
+
+    button = tk.Button(root, text="Start timer", command=lambda: start_timer(work_entry, break_entry, sumround_entry, timer_label, progress_frame, label, button, work_label, break_label, sumround_label, root))
     button.pack()
+
+    return work_entry, break_entry, sumround_entry, button, work_label, break_label, sumround_label, label, timer_label, progress_frame
