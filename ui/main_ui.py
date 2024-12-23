@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from logic.timer import start_timer
+from logic.utils import restart_f
 
 def create_main_window(root):
     root.title("Tomate!")
@@ -15,7 +16,7 @@ def create_main_window(root):
     label = tk.Label(root, text="Welcome to Tomate! \n \
 Please enter duration of \n \
 work and break (in minutes)", font=base_font)
-    label.pack()
+    label.pack(anchor="center")
 
     work_label = tk.Label(root, text="Duration of work")
     work_entry = tk.Entry(root)
@@ -36,10 +37,10 @@ work and break (in minutes)", font=base_font)
     timer_label.pack()
 
     progress_frame = tk.Frame(root)
-    progress_frame.pack(fill=tk.BOTH, expand=True)
 
+    restart_btn = tk.Button(root, text="Reset timer", command=lambda: restart_f(create_main_window, root))
 
-    button = tk.Button(root, text="Start timer", command=lambda: start_timer(work_entry, break_entry, sumround_entry, timer_label, progress_frame, label, button, work_label, break_label, sumround_label, root))
+    button = tk.Button(root, text="Start timer", command=lambda: start_timer(work_entry, break_entry, sumround_entry, timer_label, progress_frame, label, button, work_label, break_label, sumround_label, restart_btn, root))
     button.pack()
 
-    return work_entry, break_entry, sumround_entry, button, work_label, break_label, sumround_label, label, timer_label, progress_frame
+    return work_entry, break_entry, sumround_entry, button, work_label, break_label, sumround_label, label, timer_label, progress_frame, restart_btn
