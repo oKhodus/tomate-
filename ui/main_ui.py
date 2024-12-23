@@ -40,7 +40,9 @@ work and break (in minutes)", font=base_font)
 
     restart_btn = tk.Button(root, text="Reset timer", command=lambda: restart_f(create_main_window, root))
 
-    button = tk.Button(root, text="Start timer", command=lambda: start_timer(work_entry, break_entry, sumround_entry, timer_label, progress_frame, label, button, work_label, break_label, sumround_label, restart_btn, root))
+    end_btn = tk.Button(root, text="Try Again", command=lambda: restart_f(create_main_window, root))
+
+    button = tk.Button(root, text="Start timer", command=lambda: start_timer(work_entry, break_entry, sumround_entry, timer_label, progress_frame, label, button, work_label, break_label, sumround_label, restart_btn, end_btn, root))
     button.pack()
 
     return work_entry, break_entry, sumround_entry, button, work_label, break_label, sumround_label, label, timer_label, progress_frame, restart_btn

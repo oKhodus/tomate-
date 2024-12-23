@@ -6,7 +6,7 @@ from logic.utils import resize
 
 pygame.mixer.init()
 
-def start_timer(work_entry, break_entry, sumround_entry, timer_label, prg_frame, label, button, work_label, break_label, sumround_label, res_btn, parent):
+def start_timer(work_entry, break_entry, sumround_entry, timer_label, prg_frame, label, button, work_label, break_label, sumround_label, res_btn, end_btn, parent):
     try:
         user_work = int(work_entry.get()) * 60
         user_break = int(break_entry.get()) * 60
@@ -14,7 +14,7 @@ def start_timer(work_entry, break_entry, sumround_entry, timer_label, prg_frame,
 
         progress = ProgressBar(prg_frame)
 
-        tomate_timer(user_work, user_break, 1, user_rounds, timer_label, progress, label, prg_frame, res_btn, parent)
+        tomate_timer(user_work, user_break, 1, user_rounds, timer_label, progress, label, prg_frame, res_btn, end_btn, parent)
 
         widgets_base = [button, work_label, break_label, sumround_label, work_entry, break_entry, sumround_entry]
         for widget in widgets_base:
@@ -23,18 +23,21 @@ def start_timer(work_entry, break_entry, sumround_entry, timer_label, prg_frame,
     except ValueError:
         messagebox.showerror("Error", "Please enter valid numbers!")
 
-def tomate_timer(work_t, break_t, loop, loops, timer_label, progress, label, prg_frame, res_btn, parent):
+def tomate_timer(work_t, break_t, loop, loops, timer_label, progress, label, prg_frame, res_btn, end_btn, parent):
     play_sound()
     if loop > loops:
 
         for widget in parent.winfo_children():
-            if widget != label:
+            main = [label, end_btn]
+            if widget not in main:
                 widget.destroy()
-        parent.geometry("333x33")
+        parent.geometry("333x75")
 
         play_sound()
 
-        label.config(text="That's all, the work is done, good job!")
+        label.config(text="That's all, the work is done, good job!\n\
+Do you wanna try it again?")
+        end_btn.pack()
         return
     
     prg_frame.pack()
@@ -57,7 +60,7 @@ def tomate_timer(work_t, break_t, loop, loops, timer_label, progress, label, prg
 
     def start_next_round():
         play_sound()
-        tomate_timer(work_t, break_t, loop + 1, loops, timer_label, progress, label, prg_frame, parent)
+        tomate_timer(work_t, break_t, loop + 1, loops, timer_label, progress, label, prg_frame, res_btn, end_btn, parent)
 
     label.config(text=f"Round {loop}/{loops}: Work time!")
     countdown(work_t, work_t, progress, start_break, timer_label, prg_frame)
