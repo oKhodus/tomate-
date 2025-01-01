@@ -1,6 +1,7 @@
 import tkinter as tk
 from ui.main_ui import create_main_window
 import logging as log
+from ttkthemes import ThemedTk
 
 log.basicConfig(
     filename="tomate.log", 
@@ -10,7 +11,7 @@ log.basicConfig(
 
 if __name__ == "__main__":
     log.info("App started...")
-    root = tk.Tk()
+    root = ThemedTk()
     create_main_window(root)
     try:
         root.mainloop()

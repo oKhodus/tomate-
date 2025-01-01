@@ -43,6 +43,7 @@ Install dependencies:
     pip install logging
     pip install pygame
     pip install tkinter
+    pip install ttkthemes
 
 Run the program:
 
